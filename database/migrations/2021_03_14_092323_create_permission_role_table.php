@@ -17,6 +17,7 @@ class CreatePermissionRoleTable extends Migration
             $table->id();
             $table->foreignId('permission_id')->constrained('permissions')->onDelete('cascade');
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            // $table->timestamps();
         });
     }
 
