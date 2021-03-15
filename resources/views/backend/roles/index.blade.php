@@ -16,9 +16,15 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <a href="{{ route('app.roles.create') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-dark">
+            @can(Auth::user()->hasPermission('app.roles.create'))
+            <a href="{{ route('app.roles.create') }}" 
+                title="Create Role" 
+                data-placement="bottom" 
+                class="btn btn-shadow mr-3 btn btn-dark"
+            >
                 <i class="fas fa-plus-circle"></i>&nbsp;Add
             </a>
+            @endcan
         </div>    
     </div>
 </div>  
@@ -52,16 +58,20 @@
                         </td>
                         <td class="text-center">{{ $role->updated_at->diffForHumans() }}</td>
                         <td class="text-center">
-                            <a href="{{ route('app.roles.edit', $role->id) }}" class="btn btn-primary btn-sm">&#128394; </a>
-                            @if($role->deletable==true)
-                            <button type="button" class="btn btn-danger btn-sm"
-                            onclick="deleteData({{ $role->id }})"
-                            >&#10006; </button>
-                            <form id="delete-form-{{ $role->id }}" method="POST" action="{{ route('app.roles.destroy', $role->id) }}" style="display:none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                            @endif
+                            @can(Auth::user()->hasPermission('app.roles.create'))
+                                <a href="{{ route('app.roles.edit', $role->id) }}" class="btn btn-primary btn-sm">&#128394; </a>
+                            @endcan
+                            @can(Auth::user()->hasPermission('app.roles.destroy'))
+                                @if($role->deletable==true)
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="deleteData({{ $role->id }})"
+                                    >&#10006; </button>
+                                    <form id="delete-form-{{ $role->id }}" method="POST" action="{{ route('app.roles.destroy', $role->id) }}" style="display:none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endif
+                            @endcan    
                         </td>
                     </tr>
                     @endforeach

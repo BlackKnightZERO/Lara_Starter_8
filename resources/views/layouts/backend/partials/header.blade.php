@@ -70,7 +70,7 @@
                                         {{ Auth::user()->name }}
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                    {{ Auth::user()->role->name }}
                                     </div>
                                 </div>
                             </div>
