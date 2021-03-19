@@ -17,3 +17,5 @@ Route::get('/dashboard', DashboardController::class)->name('dashboard');
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::resource('backups', BackupController::class)->only(['index', 'store', 'destroy']);
+ROute::get('backups/{file_name}', [BackupController::class, 'download'])->name('backups.download');
+ROute::delete('backups', [BackupController::class, 'clean'])->name('backups.clean');

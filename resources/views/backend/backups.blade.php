@@ -16,14 +16,32 @@
             </div>
         </div>
         <div class="page-title-actions">
+        {{-- @can(Auth::user()->hasPermission('app.backups.destroy')) --}}
+            <button onclick="event.preventDefault();
+                          document.getElementById('clean-old-backups').submit();"
+                            class="btn-shadow btn btn-danger">
+                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                            <i class="fas fa-trash fa-w-20"></i>
+                        </span>
+                        {{ __('Clean Old Backups') }}
+                    </button>
+                    <form id="clean-old-backups" action="{{ route('app.backups.clean') }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+            {{-- @endcan --}}        
+
             {{-- @can(Auth::user()->hasPermission('app.backups.store')) --}}
-            <a href="{{ route('app.backups.store') }}" 
+            <button type="button" onclick="event.preventDefault(); document.getElementById('backup_form').submit();"; 
                 title="Create" 
                 data-placement="bottom" 
                 class="btn btn-shadow mr-3 btn btn-primary"
             >
-                <i class="fas fa-plus-circle"></i>&nbsp;Add
-            </a>
+                <i class="fas fa-plus-circle"></i>&nbsp;Create
+            </button>
+            <form id="backup_form" action="{{ route('app.backups.store') }}" method="POST" style="display:none">
+                @csrf
+            </form>
             {{-- @endcan --}}
         </div>    
     </div>
@@ -52,8 +70,8 @@
                         <td class="text-center">{{ $backup['file_size'] }}</td>
                         <td class="text-center">{{ $backup['created_at'] }}</td>
                         <td class="text-center">
-                            {{-- @can(Auth::user()->hasPermission('app.backups.create')) --}}
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-download"></i></a>
+                            {{-- @can(Auth::user()->hasPermission('app.backups.download')) --}}
+                                <a href="{{ route('app.backups.download', $backup['file_name']) }}" class="btn btn-primary btn-sm"><i class="fa fa-download"></i></a>
                             {{-- @endcan --}}     
                             {{-- @can(Auth::user()->hasPermission('app.backups.destroy')) --}}
                                 <button type="button" class="btn btn-danger btn-sm"
