@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        
+        Blade::if('role', function($role){
+            return Auth::user()->role->slug == $role;
+        });
     }
 }

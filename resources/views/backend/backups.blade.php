@@ -12,15 +12,15 @@
                 <i class="pe-7s-check icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Roles Management
+            <div>Backups Management
             </div>
         </div>
         <div class="page-title-actions">
-            {{-- @can(Auth::user()->hasPermission('app.roles.create')) --}}
-            <a href="{{ route('app.roles.create') }}" 
-                title="Create Role" 
+            {{-- @can(Auth::user()->hasPermission('app.backups.store')) --}}
+            <a href="{{ route('app.backups.store') }}" 
+                title="Create" 
                 data-placement="bottom" 
-                class="btn btn-shadow mr-3 btn btn-dark"
+                class="btn btn-shadow mr-3 btn btn-primary"
             >
                 <i class="fas fa-plus-circle"></i>&nbsp;Add
             </a>
@@ -38,39 +38,31 @@
                     <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th class="text-center">Name</th>
-                        <th class="text-center">Permissions</th>
-                        <th class="text-center">Updated At</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-center">File Name</th>
+                        <th class="text-center">Size</th>
+                        <th class="text-center">Created At</th>
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($roles as $role)
+                    @foreach($backups as $key => $backup)
                     <tr>
                         <td class="text-center text-muted">{{ $loop->iteration }}</td>
-                        <td class="text-center">{{ $role->name }}</td>
+                        <td class="text-center">{{ $backup['file_name'] }}</td>
+                        <td class="text-center">{{ $backup['file_size'] }}</td>
+                        <td class="text-center">{{ $backup['created_at'] }}</td>
                         <td class="text-center">
-                            @if($role->permissions->count() > 0)
-                                <span class="badge badge-info">{{ $role->permissions->count() }}</span>
-                            @else       
-                                <span class="badge badge-secondary">NO</span> 
-                            @endif
-                        </td>
-                        <td class="text-center">{{ $role->updated_at->diffForHumans() }}</td>
-                        <td class="text-center">
-                            {{-- @can(Auth::user()->hasPermission('app.roles.create')) --}}
-                                <a href="{{ route('app.roles.edit', $role->id) }}" class="btn btn-primary btn-sm">&#128394; </a>
+                            {{-- @can(Auth::user()->hasPermission('app.backups.create')) --}}
+                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-download"></i></a>
                             {{-- @endcan --}}     
-                            {{-- @can(Auth::user()->hasPermission('app.roles.destroy')) --}}
-                                @if($role->deletable==true)
+                            {{-- @can(Auth::user()->hasPermission('app.backups.destroy')) --}}
                                 <button type="button" class="btn btn-danger btn-sm"
-                                onclick="deleteData({{ $role->id }})"
-                                >&#10006; </button>
-                                <form id="delete-form-{{ $role->id }}" method="POST" action="{{ route('app.roles.destroy', $role->id) }}" style="display:none;">
+                                onclick="deleteData({{ $key }})"
+                                ><i class="fas fa-times"></i></button>
+                                <form id="delete-form-{{ $key }}" method="POST" action="{{ route('app.backups.destroy', $backup['file_name']) }}" style="display:none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
-                                @endif
                             {{-- @endcan --}}    
                         </td>
                     </tr>
