@@ -38,4 +38,32 @@ class ProfileController extends Controller
         notify()->success("User Updated","Success");    
         return back();
     }
+    public function changePassword()
+    {
+        return view('backend.profile.password');
+    }
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        $this->validate($request, [
+            'current_password' => 'required|string|min:6',
+            'password' => 'required|confirmed|string|min:6',
+        ]);
+        $hashedPassword = $user->password;
+        if(Hash::check($request->current_password, $hashedPassword)){
+            if(!Hash::check($request->password, $hashedPassword)){
+                $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+                Auth::logout();
+                return redirect()->route('login')->with('message', 'Password Changed Successfully!');;
+            } else {
+                notify()->warning("New Password Can\'t be same as Old Password!","Error"); 
+            }
+        } else {
+            notify()->error("Current Password Not Matched!","Error"); 
+        }
+            
+        return back();
+    }
 }

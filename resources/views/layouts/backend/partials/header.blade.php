@@ -52,7 +52,7 @@
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                                             <a href="{{ route('app.profile.index') }}" tabindex="0" class="dropdown-item">Profile</a>
-                                            <a href="#" tabindex="0" class="dropdown-item">Change Password</a>
+                                            <a href="{{ route('app.profile.password.change') }}" tabindex="0" class="dropdown-item">Change Password</a>
                                             <a href="#" tabindex="0" class="dropdown-item">Settings</a>
                                             
                                             <div tabindex="-1" class="dropdown-divider"></div>
