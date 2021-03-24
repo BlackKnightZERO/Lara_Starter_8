@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\BackupController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,7 @@ Route::get('profile', [ProfileController::class, 'index'])->name('profile.index'
 Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('profile/security', [ProfileController::class, 'changePassword'])->name('profile.password.change');
 Route::put('profile/security', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+Route::resource('pages', PageController::class);
+
+
+

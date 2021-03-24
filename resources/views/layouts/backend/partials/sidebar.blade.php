@@ -31,32 +31,39 @@
         </div>    <div class="scrollbar-sidebar">
             <div class="app-sidebar__inner">
                 <ul class="vertical-nav-menu">
-                    <li class="app-sidebar__heading">Dashboards</li>
+                    <!-- <li class="app-sidebar__heading">Dashboards</li> -->
                     <li>
                         <a href="{{ route('app.dashboard') }}" class="{{ Route::is('app.dashboard') ? 'mm-active' : '' }}">
                             <i class="metismenu-icon pe-7s-rocket"></i>
                             Dashboard Example 1
                         </a>
                     </li>
-                    <li class="app-sidebar__heading">Roles</li>
+                    <!-- <li class="app-sidebar__heading">Roles</li> -->
                     <li>
                         <a href="{{ route('app.roles.index') }}" class="{{ Request::is('app/roles*') ? 'mm-active' : '' }}">
                             <i class="metismenu-icon pe-7s-check"></i>
-                            List
+                            Roles
                         </a>
                     </li>
-                    <li class="app-sidebar__heading">Users</li>
+                    <!-- <li class="app-sidebar__heading">Users</li> -->
                     <li>
                         <a href="{{ route('app.users.index') }}" class="{{ Request::is('app/users*') ? 'mm-active' : '' }}">
-                            <i class="metismenu-icon pe-7s-check"></i>
+                            <i class="metismenu-icon pe-7s-user"></i>
                             User
                         </a>
                     </li>
-                    <li class="app-sidebar__heading">Backups</li>
+                    <!-- <li class="app-sidebar__heading">Backups</li> -->
                     <li>
                         <a href="{{ route('app.backups.index') }}" class="{{ Request::is('app/backups*') ? 'mm-active' : '' }}">
-                            <i class="metismenu-icon pe-7s-check"></i>
+                            <i class="metismenu-icon pe-7s-refresh-cloud"></i>
                             Backups
+                        </a>
+                    </li>
+                    <!-- <li class="app-sidebar__heading">Pages</li> -->
+                    <li>
+                        <a href="{{ route('app.pages.index') }}" class="{{ Request::is('app/pages*') ? 'mm-active' : '' }}">
+                            <i class="metismenu-icon pe-7s-news-paper"></i>
+                            Pages
                         </a>
                     </li>
                 </ul>
