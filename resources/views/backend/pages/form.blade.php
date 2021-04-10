@@ -19,16 +19,16 @@
                 </i>
             </div>
             <div>
-            @isset($user) 
+            @isset($page) 
                 Update 
             @else 
                 Add 
             @endisset 
-                Users
+                Pages
             </div>
         </div>
         <div class="page-title-actions">
-            <a href="{{ route('app.users.index') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-secondary">
+            <a href="{{ route('app.pages.index') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-secondary">
                 <i class="fas fa-arrow-circle-left"></i>&nbsp;List
             </a>
         </div>    
@@ -37,9 +37,9 @@
 
 <div class="row">
     <div class="col-12">
-        <form method="POST" action="{{ isset($user) ? route('app.users.update', $user->id) : route('app.users.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ isset($page) ? route('app.pages.update', $page->id) : route('app.pages.store') }}" enctype="multipart/form-data">
             @csrf
-            @isset($user)
+            @isset($page)
                 @method('PUT')
             @endisset 
             <div class="row">
@@ -47,60 +47,45 @@
                     <div class="main-card mb-3 card">
                         <div class="card-body">
                             <h5 class="card-title">
-                            User Info
+                            page Info
                             </h5>
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input id="name" type="text" 
-                                class="form-control @error('name') is-invalid @enderror" 
-                                name="name" value="{{ $user->name ?? old('name') }}" 
+                                <label for="name">Title</label>
+                                <input id="title" type="text" 
+                                class="form-control @error('title') is-invalid @enderror" 
+                                name="title" value="{{ $page->title ?? old('title') }}" 
                                 required autofocus>
-                                @error('name')
+                                @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" type="email" 
-                                class="form-control @error('email') is-invalid @enderror" 
-                                name="email" value="{{ $user->email ?? old('email') }}" 
-                                required autofocus>
-                                @error('email')
+                            <label for="excerpt">Short Description</label>
+                                <textarea class="form-control @error('excerpt') is-invalid @enderror" 
+                                name="password_confirmation">{{ $page->excerpt ?? old('excerpt')  }}</textarea>
+                                @error('excerpt')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>      
+                            </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input id="password" type="password" 
-                                class="form-control @error('password') is-invalid @enderror" 
-                                name="password" 
-                                @isset($user) @else required @endisset  autofocus>
-                                @error('password')
+                            <label for="body">Main Description</label>
+                                <textarea class="form-control @error('body') is-invalid @enderror" 
+                                name="password_confirmation">{{ $page->body ?? old('body')  }}</textarea>
+                                @error('body')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>      
-                            <div class="form-group">
-                                <label for="confirm_password">Confirm Password</label>
-                                <input id="confirm_password" type="password" 
-                                class="form-control @error('confirm_password') is-invalid @enderror" 
-                                name="password_confirmation" 
-                                @isset($user) @else required @endisset autofocus>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>      
+                            </div>
+                                 
 
                             <hr>
                             <button type="submit" class="btn btn-info btn-block"><i class="fas fa-check-circle"></i>
-                            @isset($user) 
+                            @isset($page) 
                                 Update 
                             @else 
                                 Create 
@@ -114,38 +99,17 @@
                     <div class="main-card mb-3 card">
                         <div class="card-body">
                             <h5 class="card-title">
-                            Role & Status
+                            Image & Status
                             </h5>
                             <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select id="role" 
-                                    class="js-example-basic-single form-control @error('role') is-invalid @enderror" 
-                                    name="role" value="{{ $user->role ?? old('role') }}" 
-                                    required>
-                                        @foreach($roles as $role)
-                                            <option value="{{ $role->id }}" 
-                                            @isset($user)
-                                               {{ ($role->id == $user->role_id ) ? 'selected' : '' }}
-                                            @endisset
-                                            >
-                                            {{ $role->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('role')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                            </div>
-                            <div class="form-group">
-                                    <label for="avatar">Image</label>
-                                    <input type="file" id="avatar" 
-                                    class="dropify @error('avatar') is-invalid @enderror" 
-                                    data-default-file="{{ isset($user) ? $user->getFirstMediaUrl('avatar') : '' }}"
-                                    name="avatar" 
-                                    @isset($user) @else required @endisset>
+                                    <label for="image">Image</label>
+                                    <input type="file" id="image" 
+                                    class="dropify @error('image') is-invalid @enderror" 
+                                    data-default-file="{{ isset($page) ? $page->getFirstMediaUrl('image') : '' }}"
+                                    name="image" 
+                                    @isset($page) @else required @endisset>
                                     </input>
-                                    @error('avatar')
+                                    @error('image')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -156,8 +120,8 @@
                                     <input type="checkbox" 
                                     class="custom-control-input" 
                                     id="status" name="status"
-                                    @isset($user)
-                                        {{ $user->status == true ? 'checked' : '' }}
+                                    @isset($page)
+                                        {{ $page->status == true ? 'checked' : '' }}
                                     @endisset    
                                     >
                                     <label class="custom-control-label" for="status">Status</label>
@@ -169,7 +133,35 @@
                                 </div>
                             </div>
                         </div>  
-                    </div>          
+                    </div>  
+
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                            Meta Informations
+                            </h5>
+                            <div class="form-group">
+                            <label for="meta_description">Meta Description</label>
+                                <textarea class="form-control @error('meta_description') is-invalid @enderror" 
+                                name="password_confirmation">{{ $page->meta_description ?? old('meta_description')  }}</textarea>
+                                @error('meta_description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                            <label for="meta_keywords">Meta Keywords</label>
+                                <textarea class="form-control @error('meta_keywords') is-invalid @enderror" 
+                                name="password_confirmation">{{ $page->meta_keywords ?? old('meta_keywords')  }}</textarea>
+                                @error('meta_keywords')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>  
+                    </div>         
                 </div>
             </div>
         </form>

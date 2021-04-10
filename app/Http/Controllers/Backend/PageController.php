@@ -28,7 +28,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize('app.pages.create');
+        return view('backend.pages.form');
     }
 
     /**
