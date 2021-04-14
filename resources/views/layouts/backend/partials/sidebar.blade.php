@@ -35,7 +35,7 @@
                     <li>
                         <a href="{{ route('app.dashboard') }}" class="{{ Route::is('app.dashboard') ? 'mm-active' : '' }}">
                             <i class="metismenu-icon pe-7s-rocket"></i>
-                            Dashboard Example 1
+                            Dashboard
                         </a>
                     </li>
                     <!-- <li class="app-sidebar__heading">Roles</li> -->

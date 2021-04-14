@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            {{-- @can(Auth::user()->hasPermission('app.users.create')) --}}
+            @can('app.users.create', 'App\Models\Users:Class')
             <a href="{{ route('app.users.create') }}" 
                 title="Create User" 
                 data-placement="bottom" 
@@ -24,7 +24,7 @@
             >
                 <i class="fas fa-plus-circle"></i>&nbsp;Add
             </a>
-            {{-- @end --}}
+            @endcan
         </div>    
     </div>
 </div>  
@@ -89,21 +89,26 @@
                         </td>
                         <td class="text-center">{{ $user->created_at->diffForHumans() }}</td>
                         <td class="text-center">               
-                            {{-- @can(Auth::user()->hasPermission('app.users.create')) --}}
-                                <a href="{{ route('app.users.show', $user->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                            {{-- @endcan --}}
-                            {{-- @can(Auth::user()->hasPermission('app.users.index')) --}}
-                                <a href="{{ route('app.users.edit', $user->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                            {{-- @endcan --}}
-                            {{-- @can(Auth::user()->hasPermission('app.users.destroy')) --}}
+                            @can('app.users.index', 'App\Models\User::class')
+                                <a href="{{ route('app.users.show', $user->id) }}" 
+                                class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                            @endcan
+                            @can('app.users.edit', 'App\Models\User::class')
+                                <a href="{{ route('app.users.edit', $user->id) }}" 
+                                class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                            @endcan
+                            @can('app.users.destroy', 'App\Models\User::class')
                                 <button type="button" class="btn btn-danger btn-sm"
-                                onclick="deleteData({{ $user->id }})"
-                                ><i class="fas fa-times"></i></button>
-                                <form id="delete-form-{{ $user->id }}" method="POST" action="{{ route('app.users.destroy', $user->id) }}" style="display:none;">
+                                onclick="deleteData( {{ $user->id }} )">
+                                <i class="fas fa-times"></i>
+                                </button>
+                            @endcan    
+                                <form id="delete-form-{{ $user->id }}" method="POST" 
+                                action="{{ route('app.users.destroy', $user->id) }}" style="display:none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
-                            {{-- @endcan --}}
+                            
                         </td>
                     </tr>
                     @endforeach

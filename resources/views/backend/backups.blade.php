@@ -9,14 +9,14 @@
     <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">
-                <i class="pe-7s-check icon-gradient bg-mean-fruit">
+                <i class="pe-7s-refresh-cloud icon-gradient bg-mean-fruit">
                 </i>
             </div>
             <div>Backups Management
             </div>
         </div>
         <div class="page-title-actions">
-        {{-- @can(Auth::user()->hasPermission('app.backups.destroy')) --}}
+            @can('app.backups.destroy')
             <button onclick="event.preventDefault();
                           document.getElementById('clean-old-backups').submit();"
                             class="btn-shadow btn btn-danger">
@@ -29,9 +29,9 @@
                         @csrf
                         @method('DELETE')
                     </form>
-            {{-- @endcan --}}        
+            @endcan        
 
-            {{-- @can(Auth::user()->hasPermission('app.backups.store')) --}}
+            @can('app.backups.create')
             <button type="button" onclick="event.preventDefault(); document.getElementById('backup_form').submit();"; 
                 title="Create" 
                 data-placement="bottom" 
@@ -42,7 +42,7 @@
             <form id="backup_form" action="{{ route('app.backups.store') }}" method="POST" style="display:none">
                 @csrf
             </form>
-            {{-- @endcan --}}
+            @endcan
         </div>    
     </div>
 </div>  
@@ -70,10 +70,10 @@
                         <td class="text-center">{{ $backup['file_size'] }}</td>
                         <td class="text-center">{{ $backup['created_at'] }}</td>
                         <td class="text-center">
-                            {{-- @can(Auth::user()->hasPermission('app.backups.download')) --}}
+                            @can('app.backups.download')
                                 <a href="{{ route('app.backups.download', $backup['file_name']) }}" class="btn btn-primary btn-sm"><i class="fa fa-download"></i></a>
-                            {{-- @endcan --}}     
-                            {{-- @can(Auth::user()->hasPermission('app.backups.destroy')) --}}
+                            @endcan     
+                            @can('app.backups.destroy')
                                 <button type="button" class="btn btn-danger btn-sm"
                                 onclick="deleteData({{ $key }})"
                                 ><i class="fas fa-times"></i></button>
@@ -81,7 +81,7 @@
                                     @csrf
                                     @method('DELETE')
                                 </form>
-                            {{-- @endcan --}}    
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

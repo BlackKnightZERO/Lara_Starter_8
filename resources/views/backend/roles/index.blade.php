@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            {{-- @can(Auth::user()->hasPermission('app.roles.create')) --}}
+            @can('app.roles.create', App\Models\Role::class)
             <a href="{{ route('app.roles.create') }}" 
                 title="Create Role" 
                 data-placement="bottom" 
@@ -24,7 +24,7 @@
             >
                 <i class="fas fa-plus-circle"></i>&nbsp;Add
             </a>
-            {{-- @endcan --}}
+            @endcan
         </div>    
     </div>
 </div>  
@@ -58,10 +58,10 @@
                         </td>
                         <td class="text-center">{{ $role->updated_at->diffForHumans() }}</td>
                         <td class="text-center">
-                            {{-- @can(Auth::user()->hasPermission('app.roles.create')) --}}
+                            @can('app.roles.create', App\Models\Role::class)
                                 <a href="{{ route('app.roles.edit', $role->id) }}" class="btn btn-primary btn-sm">&#128394; </a>
-                            {{-- @endcan --}}     
-                            {{-- @can(Auth::user()->hasPermission('app.roles.destroy')) --}}
+                            @endcan   
+                            @can('app.roles.destroy', App\Models\Role::class)
                                 @if($role->deletable==true)
                                 <button type="button" class="btn btn-danger btn-sm"
                                 onclick="deleteData({{ $role->id }})"
@@ -71,7 +71,7 @@
                                     @method('DELETE')
                                 </form>
                                 @endif
-                            {{-- @endcan --}}    
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

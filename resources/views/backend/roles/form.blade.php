@@ -18,9 +18,12 @@
             </div>
         </div>
         <div class="page-title-actions">
-            <a href="{{ route('app.roles.index') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-secondary">
+            @can('app.roles.index', App\Models\Role::class)
+            <a href="{{ route('app.roles.index') }}" title="Create Role" data-placement="bottom" 
+            class="btn btn-shadow mr-3 btn btn-secondary">
                 <i class="fas fa-arrow-circle-left"></i>&nbsp;List
             </a>
+            @endcan
         </div>    
     </div>
 </div>  

@@ -15,7 +15,7 @@
     <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">
-                <i class="pe-7s-check icon-gradient bg-mean-fruit">
+                <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                 </i>
             </div>
             <div>
@@ -28,9 +28,11 @@
             </div>
         </div>
         <div class="page-title-actions">
+            @can('app.pages.index', App\Models\Page::class)
             <a href="{{ route('app.pages.index') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-secondary">
                 <i class="fas fa-arrow-circle-left"></i>&nbsp;List
             </a>
+            @endcan
         </div>    
     </div>
 </div>  

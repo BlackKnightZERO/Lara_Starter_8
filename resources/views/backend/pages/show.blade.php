@@ -5,27 +5,27 @@
     <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">
-                <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                <i class="pe-7s-pe-7s-photo-gallery icon-gradient bg-mean-fruit">
                 </i>
             </div>
             <div>User Management
             </div>
         </div>
         <div class="page-title-actions">
-            {{-- @can(Auth::user()->hasPermission('app.users.create')) --}}
-            <a href="{{ route('app.users.edit', $user->id) }}" 
+            @can('app.pages.create', App\Models\Page::class)
+            <a href="{{ route('app.pages.edit', $user->id) }}" 
                 title="Create User" 
                 data-placement="bottom" 
                 class="btn btn-shadow mr-3 btn btn-dark"
             >
                 <i class="fa fa-pen"></i>&nbsp;Edit
             </a>
-            {{-- @end --}}
-            {{-- @can(Auth::user()->hasPermission('app.users.index')) --}}
-            <a href="{{ route('app.users.index') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-secondary">
+            @endcan
+            @can('app.pages.index', App\Models\Page::class)
+            <a href="{{ route('app.pages.index') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-secondary">
                 <i class="fas fa-arrow-circle-left"></i>&nbsp;List
             </a>
-            {{-- @end --}}
+            @endcan
         </div>    
     </div>
 </div>  

@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            {{-- @can(Auth::user()->hasPermission('app.users.create')) --}}
+            @can('app.users.edit', 'App\Models\User::class')
             <a href="{{ route('app.users.edit', $user->id) }}" 
                 title="Create User" 
                 data-placement="bottom" 
@@ -20,12 +20,12 @@
             >
                 <i class="fa fa-pen"></i>&nbsp;Edit
             </a>
-            {{-- @end --}}
-            {{-- @can(Auth::user()->hasPermission('app.users.index')) --}}
+            @endcan
+            @can('app.users.index', 'App\Models\User::class')
             <a href="{{ route('app.users.index') }}" title="Create Role" data-placement="bottom" class="btn btn-shadow mr-3 btn btn-secondary">
                 <i class="fas fa-arrow-circle-left"></i>&nbsp;List
             </a>
-            {{-- @end --}}
+            @endcan
         </div>    
     </div>
 </div>  

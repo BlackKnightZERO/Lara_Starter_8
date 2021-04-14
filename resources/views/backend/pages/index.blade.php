@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="page-title-actions">
-            {{-- @can(Auth::user()->hasPermission('app.pages.create')) --}}
+            @can('app.pages.create', App\Models\Page::class)
             <a href="{{ route('app.pages.create') }}" 
                 title="Create Page" 
                 data-placement="bottom" 
@@ -24,7 +24,7 @@
             >
                 <i class="fas fa-plus-circle"></i>&nbsp;Add
             </a>
-            {{-- @end --}}
+            @endcan
         </div>    
     </div>
 </div>  
@@ -64,10 +64,10 @@
                         </td>
                         <td class="text-center">{{ $page->updated_at->diffForHumans() }}</td>
                         <td class="text-center">               
-                            {{-- @can(Auth::user()->hasPermission('app.pages.index')) --}}
+                            @can('app.pages.edit', App\Models\Page::class)
                                 <a href="{{ route('app.pages.edit', $page->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                            {{-- @endcan --}}
-                            {{-- @can(Auth::user()->hasPermission('app.pages.destroy')) --}}
+                            @endcan
+                            @can('app.pages.destroy', App\Models\Page::class)
                                 <button type="button" class="btn btn-danger btn-sm"
                                 onclick="deleteData({{ $page->id }})"
                                 ><i class="fas fa-times"></i></button>
@@ -75,7 +75,7 @@
                                     @csrf
                                     @method('DELETE')
                                 </form>
-                            {{-- @endcan --}}
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
